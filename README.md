@@ -38,4 +38,4 @@ python gui.py
 # Demo-Release
 The GUI is released as windows-executables under `/dist/gui.exe`  
 Simply open gui.exe to run the GUI  
-![](https://i.ibb.co/Fb3rJrv/moodelgen.png)
+
