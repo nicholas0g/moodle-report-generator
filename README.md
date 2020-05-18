@@ -2,7 +2,8 @@
 Client for xlsx report generator.
 The report will contain all the individual courses by number of participants and a detail of all users and all their enrollments.
 In order to use the client you well need to cofigure the web service of your moodle installation
-![](https://img.shields.io/github/stars/nichoals0g/moodle-report-generator.svg) ![](https://img.shields.io/github/forks/nichoals0g/moodle-report-generator.svg) ![](https://img.shields.io/github/tag/nichoals0g/moodle-report-generator.svg)
+![](https://img.shields.io/github/stars/nicholas0g/moodle-report-generator.svg) ![](https://img.shields.io/github/forks/nicholas0g/moodle-report-generator.svg) ![](https://img.shields.io/github/tag/nicholas0g/moodle-report-generator.svg)
+## Warning
 :exclamation: PLEASE BE AWARE: the GUI will save on your local pc an unencripted moodle token! (for now it is used for development)
 ## Enable Webservices
 Go to `Site administration -> Plugins -> Web services -> Overview` and follow the instructions to enable web services and generate authorization token. 
