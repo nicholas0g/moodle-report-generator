@@ -19,8 +19,19 @@ class ops(Thread):
         utenti_totali=0
         name=datetime.now().strftime("%d-%m-%Y %H.%M.%S")
         workbook = xlsxwriter.Workbook('Report-'+name+".xlsx")
+        bold = workbook.add_format({'bold': True})
+        red_cell = workbook.add_format()
+        red_cell.set_fg_color('red')
+        orange_cell = workbook.add_format({'bold': True})
+        orange_cell.set_fg_color('orange')
+        yellow_cell = workbook.add_format()
+        yellow_cell.set_fg_color('yellow')
         worksheet = workbook.add_worksheet()
-        row=2
+        worksheet.set_column('E:E', 18)
+        worksheet.set_column('G:G', 18)
+        worksheet.set_column('H:H', 18)
+        worksheet.set_column('A:A', 40)
+        row=3
         col=0
         status=0
         logs.insert(0,"Recupero elenco corsi ...")
@@ -55,14 +66,15 @@ class ops(Thread):
                         else:
                             unit[i['roles'][0]['shortname']]=1
                 spec_corsi.append(unit)
-            worksheet.write(0, 0,'Report dei singoli corsi al '+name)
-            worksheet.write(row,0,"Questo report gia ignora tutte le utenze con mail contenenti "+mail.get()+" e tutti gli utenti non iscritti ad un corso")
-            worksheet.write(row, 0,"nome corso")
-            worksheet.write(row, 1,"Studenti")
-            worksheet.write(row, 2,"Docenti")
-            worksheet.write(row, 3,"Manager")
-            worksheet.write(row, 4,"Docenti non editor")
-            worksheet.write(row, 5,"Totale")
+            worksheet.merge_range('A1:F1', 'Piattaforma '+url.get(), yellow_cell)
+            worksheet.merge_range('A2:F2', 'Report dei singoli corsi al '+name, red_cell)
+            worksheet.merge_range('A3:F3',"Questo report gia ignora tutte le utenze con mail contenenti "+mail.get()+" e tutti gli utenti non iscritti ad un corso",red_cell)
+            worksheet.write(row, 0,"nome corso",bold)
+            worksheet.write(row, 1,"Studenti",bold)
+            worksheet.write(row, 2,"Docenti",bold)
+            worksheet.write(row, 3,"Manager",bold)
+            worksheet.write(row, 4,"Docenti non editor",bold)
+            worksheet.write(row, 5,"Totale",bold)
             col=6
             for k in spec_corsi:
                 if('student' not in k):
@@ -83,16 +95,15 @@ class ops(Thread):
                 worksheet.write(row, 5,tot)
                 utenti_totali=utenti_totali+tot
             fine_somma=row+1
+            row=row+2
+            worksheet.merge_range("A"+str(row)+":F"+str(row),'Report complessivo dei singoli utenti iscritti a corsi in data '+name,red_cell)
             row=row+1
-            worksheet.write(row,0,'Report complessivo dei singoli utenti iscritti a corsi in data '+name)
-            row=row+1
-            worksheet.write(row,0,"Questo report gia ignora tutte le utenze con mail contenenti "+mail.get()+" e tutti gli utenti non iscritti ad un corso")
-            row=row+1
-            worksheet.write(row, 0,"Nome corso")
-            worksheet.write(row, 1,"Nominativo")
-            worksheet.write(row, 2,"Email")
-            worksheet.write(row, 3,"Ruolo")
-            worksheet.write(row, 4,"Primo accesso")
+            worksheet.merge_range("A"+str(row)+":F"+str(row),"Questo report gia ignora tutte le utenze con mail contenenti "+mail.get()+" e tutti gli utenti non iscritti ad un corso",red_cell)
+            worksheet.write(row, 0,"Nome corso",bold)
+            worksheet.write(row, 1,"Nominativo",bold)
+            worksheet.write(row, 2,"Email",bold)
+            worksheet.write(row, 3,"Ruolo",bold)
+            worksheet.write(row, 4,"Primo accesso",bold)
             for k in totali:
                 row=row+1
                 riga=k.split(",")
@@ -104,7 +115,10 @@ class ops(Thread):
 
             logs.insert(0,"---------------------------------------------------------")
             logs.insert(0,"Totale attivi:"+str(utenti_totali-mai_acceduti))
-            worksheet.write("K2","=SUM(F4:F"+str(fine_somma)+")")
+            worksheet.write("G1","Utenti totali",orange_cell)
+            worksheet.write("G2","=SUM(F4:F"+str(fine_somma)+")")
+            worksheet.write("H1","Utenti mai attivi",orange_cell)
+            worksheet.write("H2","=COUNTIF(E"+str(fine_somma+3)+":E"+str(row)+',"mai")')
             workbook.close()
             logs.insert(0,"Procedura terminata.")
         except Exception as e: 
