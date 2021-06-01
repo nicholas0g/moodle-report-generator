@@ -34,7 +34,5 @@ python gui.py
 ```
 ## DEVELOPMENT WARNING
 :exclamation::exclamation::exclamation: The GUI will automatically save the entered data in a json file for future usage.
-# Demo-Release
-The GUI is released as windows-executables under `/dist/gui.exe`  
-Simply open gui.exe to run the GUI  
+
 
