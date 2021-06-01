@@ -1,0 +1,2 @@
+XlsxWriter==1.2.8
+tinydb
