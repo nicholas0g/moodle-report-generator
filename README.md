@@ -1,7 +1,7 @@
 # Moodle Global user report generator
 Client for xlsx report generator.  
 The report will contain all the individual courses by number of participants and a detail of all users and all their enrollments.  
-In order to use the client you well need to cofigure the web service of your moodle installation.  
+In order to use the client you will need to cofigure the web service of your moodle installation.  
 
 ![](https://img.shields.io/github/stars/nicholas0g/moodle-report-generator.svg) ![](https://img.shields.io/github/forks/nicholas0g/moodle-report-generator.svg) ![](https://img.shields.io/github/tag/nicholas0g/moodle-report-generator.svg)  
 ## Warning
@@ -22,7 +22,7 @@ mail_skip="mail_to_skip"
 ```
 `mail_skip` can be used to filter out users with particular email, like your company email me@mycompany.org  
 If you set `mail_skip="@mycompany.org"`, all the user with an email containing @mycompany.org will be ignored.  
-Before running direcly for python make shure to install all the required pip packages in `requirements.txt`.  
+Before running make shure to install all the required pip packages in `requirements.txt`.  
 
 To use the cli simply run: 
 ```
